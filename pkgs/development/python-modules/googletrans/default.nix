@@ -1,2 +1,15 @@
-{\n  lib,\n  buildPythonPackage,\n  fetchPypi,\n  hatchling,\n  httpx,\n}:
-\nbuildPythonPackage rec {\n  pname = "googletrans";\n  version = "4.0.2";\n  pyproject = true;\n\n  src = fetchPypi {\n    inherit pname version;\n    hash = "sha256-2e8Sa12S+r7sC7ndzb7s1Dhl/ADhfx36B3F4N4J6F94=";\n  };\n\n  build-system = [ hatchling ];\n\n  dependencies = [ httpx ] ++ httpx.optional-dependencies.http2;\n\n  # Majority of tests just try to ping Google's Translate API endpoint\n  doCheck = false;\n\n  pythonImportsCheck = [ "googletrans" ];\n\n  meta = {\n    description = "Library to interact with Google Translate API";\n    homepage = "https://py-googletrans.readthedocs.io";\n    license = lib.licenses.mit;\n    maintainers = with lib.maintainers; [ unode ];\n    mainProgram = "translate";\n  };\n}
+{ pkgs ? import ../.. { }}:
+
+let
+  version = "4.0.0";
+  been_fetched_version = "4.0.0";
+  changelog = "Google Translator API (googletrans) provides an interface to the Google Translate service. It allows users to use Google Translate's features directly in their Python applications. It supports multiple languages and provides features such as automatic language detection and reverse translation.
+  ";
+
+in
+{  # make sure to install prerequisites
+  packages = [
+    googletrans,
+    # Removed changelog line
+  ];
+}
